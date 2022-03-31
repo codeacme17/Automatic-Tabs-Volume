@@ -1,0 +1,12 @@
+{
+  "name": "Automatic Tabs Volume",
+  "description": "",
+  "version": "1.0.1",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "./src/js/index.js"
+  },
+  "action": {
+    "default_popup": "./popup/popup.html"
+  }
+}
