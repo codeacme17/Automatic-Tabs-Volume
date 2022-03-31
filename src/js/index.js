@@ -25,9 +25,3 @@ function toggleMuteState(tab, allTabs) {
     chrome.tabs.update(tab.id, { muted: false });
   }
 }
-
-chrome.tabs.getSelected(null, function (tab) {
-  chrome.tabs.sendMessage(tab.id, {}, function (response) {
-    console.log(response);
-  });
-});
