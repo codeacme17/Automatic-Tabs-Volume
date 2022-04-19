@@ -1,12 +1,10 @@
 chrome.tabs.onActivated.addListener((activeInfo) => move(activeInfo));
 
 function move(activeInfo) {
-  let allTabs = [];
-
+  let allTabs;
   chrome.tabs.query({}, function (tabs) {
     allTabs = tabs;
   });
-
   chrome.tabs.get(activeInfo.tabId, (info) => {
     toggleMuteState(info, allTabs);
   });

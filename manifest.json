@@ -3,8 +3,9 @@
   "description": "",
   "version": "1.0.1",
   "manifest_version": 3,
+  "permissions": ["pageCapture", "browserAction"],
   "background": {
-    "service_worker": "./src/js/index.js"
+    "service_worker": "./js/index.js"
   },
   "action": {
     "default_popup": "./popup/popup.html"
