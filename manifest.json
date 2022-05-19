@@ -3,11 +3,17 @@
   "description": "",
   "version": "1.0.1",
   "manifest_version": 3,
-  "permissions": ["pageCapture", "browserAction"],
+  "permissions": ["tabCapture", "tabs", ""],
   "background": {
     "service_worker": "./js/index.js"
   },
   "action": {
     "default_popup": "./popup/popup.html"
+  },
+  "icons": {
+    "128": "logo/logo-128.png",
+    "48": "logo/logo-48.png",
+    "32": "logo/logo-32.png",
+    "16": "logo/logo-16.png"
   }
 }

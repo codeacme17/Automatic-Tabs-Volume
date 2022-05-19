@@ -1,16 +1,91 @@
-.container {
-  width: 300px;
-}
-button {
-  height: 30px;
-  width: 30px;
-  outline: none;
-  margin: 10px;
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
 }
 
-button.current {
-  box-shadow: 0 0 0 2px white, 0 0 0 4px black;
+html{
+  background: none;
+}
+
+body {
+  background: none;
+	font-family: Poppins,".SFNSText-Regular","Helvetica Neue","Roboto","Segoe UI",sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+.container {
+  width: 300px;
+  height: 100%;
+  border-radius: 10px;
+  padding: 20px 10px 10px 10px;
+}
+
+
+.logo{
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.logo > h2{
+  margin: -3px 0px 0px 20px;
+}
+
+
+input[type=checkbox]{
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 60px;
+  height: 30px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+label:after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  width: 25px;
+  height: 25px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+input:checked + label {
+  background: black
+}
+
+input:checked + label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+label:active:after {
+  width: 35px;
+}
+
+.signature{
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+
+.signature > a{
+  text-decoration: none;
+  color: inherit;
+  transition: 0.2s ease;
+}
+.signature > a:hover{
+  opacity: 0.6;
 }
