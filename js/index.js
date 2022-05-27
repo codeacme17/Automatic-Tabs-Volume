@@ -23,3 +23,18 @@ function toggleMuteState(tab, allTabs) {
     chrome.tabs.update(tab.id, { muted: false });
   }
 }
+
+chrome.tabs.onRemoved.addListener(() => {
+  chrome.tabs.query({}, function (tabs) {
+    let set = new Set();
+    tabs.forEach((singleTab) => {
+      if (singleTab.audible) {
+        set.add(singleTab.id);
+      }
+    });
+    let audibleTabs = [...set.values()];
+    if (audibleTabs.length == 1) {
+      chrome.tabs.update(audibleTabs[0], { muted: false });
+    }
+  });
+});
