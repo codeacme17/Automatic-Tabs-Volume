@@ -1,11 +1,15 @@
-chrome.tabs.onActivated.addListener((activeInfo) => move(activeInfo));
+chrome.tabs.onActivated.addListener((activeTab) => switchTab(activeTab));
 
-function move(activeInfo) {
+function updateTabMuted(tabId, isMuted) {
+  chrome.tabs.update(tabId, { muted: isMuted });
+}
+
+function switchTab(activeTab) {
   let allTabs;
-  chrome.tabs.query({}, function (tabs) {
+  chrome.tabs.query({ currentWindow: true }, function (tabs) {
     allTabs = tabs;
   });
-  chrome.tabs.get(activeInfo.tabId, (info) => {
+  chrome.tabs.get(activeTab.tabId, (info) => {
     toggleMuteState(info, allTabs);
   });
 }
@@ -14,19 +18,19 @@ function toggleMuteState(tab, allTabs) {
   if (tab.audible) {
     allTabs.forEach((singleTab) => {
       if (singleTab.id === tab.id) {
-        chrome.tabs.update(tab.id, { muted: false });
+        updateTabMuted(tab.id, false);
       } else {
-        chrome.tabs.update(singleTab.id, { muted: true });
+        updateTabMuted(singleTab.id, true);
       }
     });
   } else {
-    chrome.tabs.update(tab.id, { muted: false });
+    updateTabMuted(tab.id, false);
   }
 }
 
 chrome.tabs.onRemoved.addListener(() => {
-  chrome.tabs.query({}, function (tabs) {
-    let set = new Set();
+  chrome.tabs.query({ currentWindow: true }, function (tabs) {
+    const set = new Set();
     tabs.forEach((singleTab) => {
       if (singleTab.audible) {
         set.add(singleTab.id);
@@ -34,7 +38,11 @@ chrome.tabs.onRemoved.addListener(() => {
     });
     let audibleTabs = [...set.values()];
     if (audibleTabs.length == 1) {
-      chrome.tabs.update(audibleTabs[0], { muted: false });
+      updateTabMuted(audibleTabs[0], false);
     }
   });
+});
+
+chrome.tabs.onCreated.addListener((tab) => {
+  // console.log(tab);
 });
