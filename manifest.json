@@ -5,7 +5,8 @@
   "manifest_version": 3,
   "permissions": ["tabCapture", "tabs", ""],
   "background": {
-    "service_worker": "./js/index.js"
+    "service_worker": "./js/index.js",
+    "type": "module"
   },
   "action": {
     "default_popup": "./popup/popup.html"
