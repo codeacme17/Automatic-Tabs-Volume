@@ -4,4 +4,4 @@ import createTab from "./createtab.js";
 
 chrome.tabs.onActivated.addListener((activeTab) => switchTab(activeTab));
 chrome.tabs.onRemoved.addListener(() => removeTab());
-chrome.tabs.onCreated.addListener((tab) => createTab(tab));
+chrome.tabs.onCreated.addListener((newTab) => createTab(newTab));

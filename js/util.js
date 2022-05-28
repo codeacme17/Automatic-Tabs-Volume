@@ -14,6 +14,11 @@ async function getTabInfoByID(tabId) {
   return await chrome.tabs.get(tabId);
 }
 
+async function getCurrentTab() {
+  let curList = await chrome.tabs.query({ active: true });
+  return curList[0];
+}
+
 function isMuted(tabInfo) {
   if (tabInfo.mutedInfo.muted) return true;
   else return false;
@@ -24,5 +29,6 @@ export {
   getAllTabs,
   getAllAudibleTabs,
   getTabInfoByID,
+  getCurrentTab,
   isMuted,
 };
