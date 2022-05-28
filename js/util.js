@@ -1,7 +1,3 @@
-function updateTabMuted(tabId, isMuted) {
-  chrome.tabs.update(tabId, { muted: isMuted });
-}
-
 async function getAllTabs() {
   return await chrome.tabs.query({ currentWindow: true });
 }
@@ -19,16 +15,33 @@ async function getCurrentTab() {
   return curList[0];
 }
 
+function updateTabMuted(tabId, isMuted) {
+  chrome.tabs.update(tabId, { muted: isMuted });
+}
+
 function isMuted(tabInfo) {
   if (tabInfo.mutedInfo.muted) return true;
   else return false;
 }
 
+function muteOtherTabs(tabInfo, allTabs) {
+  allTabs.forEach((singleTab) => {
+    if (tabInfo.audible) {
+      if (singleTab.id === tabInfo.id) {
+        updateTabMuted(tabInfo.id, false);
+      } else {
+        updateTabMuted(singleTab.id, true);
+      }
+    }
+  });
+}
+
 export {
-  updateTabMuted,
   getAllTabs,
   getAllAudibleTabs,
   getTabInfoByID,
   getCurrentTab,
+  updateTabMuted,
   isMuted,
+  muteOtherTabs,
 };
